@@ -7,7 +7,7 @@ class Solution {
         if (k<=1) return 0;
         while (end < nums.length){
             curr *= nums[end];
-            while (start <= end && curr >=k){
+            while (curr >=k){
                 curr/= nums[start];
                 start++;
             }
