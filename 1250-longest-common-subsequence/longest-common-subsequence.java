@@ -1,22 +1,17 @@
 class Solution {
-    int dp[][];
-    public int solve(String s1, String s2, int i, int j){
-        if (i>=s1.length()|| j>=s2.length()) return 0;
-        if (dp[i][j]!=-1) return dp[i][j];
-        if (s1.charAt(i)==s2.charAt(j)) return dp[i][j]= 1+ solve(s1,s2,i+1,j+1);
-        else{
-            int skip_i = solve(s1,s2,i+1,j);
-            int skip_j= solve(s1,s2,i,j+1);
-            return dp[i][j]=Math.max(skip_i,skip_j);
-        }
-    }
     public int longestCommonSubsequence(String text1, String text2) {
-        dp = new int[text1.length()][text2.length()];
-        for (int i=0; i<text1.length(); i++){
-            for (int j=0;j<text2.length();j++){
-                dp[i][j]=-1;
+        int n = text1.length();
+        int m = text2.length();
+        int[][] dp = new int[n+1][m+1];
+        for(int i=1; i<=n;i++){
+            for (int j=1; j<=m;j++){
+                if(text1.charAt(i-1)==text2.charAt(j-1)){
+                    dp[i][j]= dp[i-1][j-1]+1;
+                }else{
+                    dp[i][j] = Math.max(dp[i][j-1] , dp[i-1][j]);
+                }
             }
         }
-        return solve(text1, text2, 0,0);
+        return dp[n][m];
     }
 }
